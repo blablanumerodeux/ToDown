@@ -19,11 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 
+import com.jerkcrew.todown.Entity.Movie;
 import com.jerkcrew.todown.Modele.Allocine;
 import com.jerkcrew.todown.Modele.CurlLike;
 import com.jerkcrew.todown.Modele.XmlParser;
 
-import Entity.Movie;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;

@@ -1,4 +1,4 @@
-package Entity;
+package com.jerkcrew.todown.Entity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
