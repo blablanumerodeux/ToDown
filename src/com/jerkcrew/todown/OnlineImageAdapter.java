@@ -54,13 +54,13 @@ public class OnlineImageAdapter extends BaseAdapter{
 			imageView=new ImageView(context);
 			imageView.setLayoutParams(new GridView.LayoutParams(100,100));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(5,5,5,5);
+//			imageView.setPadding(5,5,5,5);
 		}else{
 			imageView=(ImageView)convertView;
 		}
-		String url = this.movieList.get(position).getPoster();
-		if (url !=null){
-			imageView.setImageBitmap(loadImageFromURL(url));
+		Bitmap image = this.movieList.get(position).getPoster();
+		if (image !=null){
+			imageView.setImageBitmap(image);
 		}else {
 			imageView.setImageResource(R.drawable.sample_2);
 		}
@@ -69,34 +69,6 @@ public class OnlineImageAdapter extends BaseAdapter{
 
 
 
-	private Bitmap loadImageFromURL(String url){
-		try{
-//			InputStream is = (InputStream) new URL(url).getContent();
-			ImageDownloadTask i = new ImageDownloadTask();
-			Bitmap d = i.execute(url).get();
-//			CurlLike curl = new CurlLike();
-////			HttpResponse response = curl.execute(url).get();
-//			Bitmap d = null;
-//			if(response.getStatusLine().getStatusCode() == 200){
-////				InputStream is = response.getEntity().getContent();
-//				String StringResponse = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-//				byte[] decodedString = Base64.decode(StringResponse,
-//                        Base64.DEFAULT);
-//                d = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
-                
-//				d = Drawable.createFromStream(is, "src");
-//				d = BitmapFactory.decodeStream(is);
-//				d = new BitmapDrawable(bit);
-//			}else{
-//		    	System.out.println("error 403");
-//		    }
-			
-			return d;
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	
 }

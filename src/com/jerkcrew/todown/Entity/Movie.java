@@ -4,19 +4,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
+
 public class Movie {
 
 	String title = "";
 	String originalTitle = "";
-	String poster = "";
+	String posterUrl = "";
 	String link = "";
+	Bitmap poster = null;
 	
 	public Movie(JSONObject movie) {
 		try {
 			this.title = movie.getString("title");
 			this.originalTitle = movie.getString("originalTitle");
 			JSONObject moviePoster = movie.getJSONObject("poster");
-			this.poster = moviePoster.getString("href");
+			
+			this.posterUrl = "http://fr.web.img"+((int) (Math.random() * 6)+1)+".acsta.net/r_75_100"+moviePoster.getString("path"); //moviePoster.getString("href");
 			JSONArray movieLinks = movie.getJSONArray("link");
 			JSONObject firstMovieLink = movieLinks.getJSONObject(0);
 			this.link = firstMovieLink.getString("href");
@@ -41,14 +45,6 @@ public class Movie {
 		this.originalTitle = originalTitle;
 	}
 
-	public String getPoster() {
-		return poster;
-	}
-
-	public void setPoster(String poster) {
-		this.poster = poster;
-	}
-
 	public String getLink() {
 		return link;
 	}
@@ -56,5 +52,22 @@ public class Movie {
 	public void setLink(String link) {
 		this.link = link;
 	}
+
+	public String getPosterUrl() {
+		return posterUrl;
+	}
+
+	public void setPosterUrl(String posterUrl) {
+		this.posterUrl = posterUrl;
+	}
+
+	public Bitmap getPoster() {
+		return poster;
+	}
+
+	public void setPoster(Bitmap poster) {
+		this.poster = poster;
+	}
+
 
 }

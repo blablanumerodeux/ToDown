@@ -3,6 +3,7 @@ package com.jerkcrew.todown;
 import java.util.ArrayList;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.jerkcrew.todown.Entity.Movie;
+import com.jerkcrew.todown.Modele.ImageDownloadTask;
 
 public class AllocineFilmList extends Fragment {
 	public static final String ARG_MENU_NUMBER = "menu_number";
@@ -44,6 +46,31 @@ public class AllocineFilmList extends Fragment {
     public void updateGrid(ArrayList<Movie> movieList) {
     	View rootView = this.getView();
         GridView gridView = (GridView) rootView.findViewById(R.id.allocine_list_film);
+        
+        String[] movieListUrl = new String[movieList.size()];
+        for (int i = 0; i<movieList.size();i++){
+        	movieListUrl[i] = movieList.get(i).getPosterUrl();
+        }
+        
+        ArrayList<Bitmap> images= loadImageFromURL(movieListUrl);
+        
+        for (int i = 0; i<images.size();i++)
+        	movieList.get(i).setPoster(images.get(i));
+        
         gridView.setAdapter(new OnlineImageAdapter(rootView.getContext(), movieList));
 	}
+    
+    
+
+	private ArrayList<Bitmap> loadImageFromURL(String[] urls){
+		try{
+			ImageDownloadTask imageDownloader = new ImageDownloadTask();
+			ArrayList<Bitmap> downloadedImages = imageDownloader.execute(urls).get();
+			return downloadedImages;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }
