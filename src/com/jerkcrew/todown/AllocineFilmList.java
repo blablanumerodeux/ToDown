@@ -1,13 +1,15 @@
 package com.jerkcrew.todown;
 
+import java.util.ArrayList;
+
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
+
+import com.jerkcrew.todown.Entity.Movie;
 
 public class AllocineFilmList extends Fragment {
 	public static final String ARG_MENU_NUMBER = "menu_number";
@@ -38,4 +40,10 @@ public class AllocineFilmList extends Fragment {
         getActivity().setTitle(menu);
         return rootView;
     }
+    
+    public void updateGrid(ArrayList<Movie> movieList) {
+    	View rootView = this.getView();
+        GridView gridView = (GridView) rootView.findViewById(R.id.allocine_list_film);
+        gridView.setAdapter(new OnlineImageAdapter(rootView.getContext(), movieList));
+	}
 }

@@ -53,6 +53,8 @@ public class MainActivity extends Activity {
     private CharSequence drawerTitle;
     private CharSequence mTitle;
     private String[] leftMenuTitles;
+    
+    private AllocineFilmList fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +143,11 @@ public class MainActivity extends Activity {
 				    for (int i =0; i<movie.length();i++){
 				    	movies.add(new Movie(movie.getJSONObject(i)));
 				    }
+				    
+				    //we update the list view 
+				    FragmentManager fragmentManager = getFragmentManager();
+			        fragment.updateGrid(movies);
+			        fragmentManager.beginTransaction().commit();
 					
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -170,7 +177,7 @@ public class MainActivity extends Activity {
 
     private void selectItem(int menuNumber) {
         // update the main content by replacing fragments
-        Fragment fragment = new AllocineFilmList();
+        fragment = new AllocineFilmList();
         Bundle args = new Bundle();
         args.putInt(AllocineFilmList.ARG_MENU_NUMBER, menuNumber);
         fragment.setArguments(args);

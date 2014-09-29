@@ -6,10 +6,10 @@ import org.json.JSONObject;
 
 public class Movie {
 
-	String title;
-	String originalTitle;
-	String poster;
-	String link;
+	String title = "";
+	String originalTitle = "";
+	String poster = "";
+	String link = "";
 	
 	public Movie(JSONObject movie) {
 		try {
@@ -23,6 +23,38 @@ public class Movie {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getOriginalTitle() {
+		return originalTitle;
+	}
+
+	public void setOriginalTitle(String originalTitle) {
+		this.originalTitle = originalTitle;
+	}
+
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 }
