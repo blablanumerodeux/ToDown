@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
         leftMenuTitles = getResources().getStringArray(R.array.menu_array);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerListView = (ListView) findViewById(R.id.left_drawer);
-        //drawerGridView = (GridView) findViewById(R.id.gridview);
+//        drawerGridView = (GridView) findViewById(R.id.gridview);
 
         // set up the drawer's list view with items and click listener
         drawerListView.setAdapter(new ArrayAdapter<String>(this,

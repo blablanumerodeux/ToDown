@@ -2,23 +2,17 @@ package com.jerkcrew.todown;
 
 import java.util.ArrayList;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jerkcrew.todown.Entity.Movie;
-import com.jerkcrew.todown.Modele.CurlLike;
-import com.jerkcrew.todown.Modele.ImageDownloadTask;
 
 public class OnlineImageAdapter extends BaseAdapter{
 
@@ -28,7 +22,10 @@ public class OnlineImageAdapter extends BaseAdapter{
 	public OnlineImageAdapter(Context context, ArrayList<Movie> movieList) {
 		super();
 		this.context = context;
-		this.movieList = movieList;
+		if (movieList == null) 
+			this.movieList = new ArrayList<Movie>();
+		else 
+			this.movieList = movieList;
 	}
 
 	@Override
@@ -48,23 +45,44 @@ public class OnlineImageAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ImageView imageView;
+		View gridViewItem = new View(context);
+		TextView details = new TextView(context);
+		ImageView imageView = new ImageView(context);
+		TextView title = new TextView(context);
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
 		if(convertView==null)
 		{
-			imageView=new ImageView(context);
-			imageView.setLayoutParams(new GridView.LayoutParams(100,100));
+			gridViewItem = (View) inflater.inflate(R.layout.allocine_grid_item, null);
+			
+			imageView = (ImageView) gridViewItem.findViewById(R.id.grid_item_image);
+			details = (TextView) gridViewItem.findViewById(R.id.grid_item_details);
+			title = (TextView) gridViewItem.findViewById(R.id.grid_item_title);
+			
+//			imageView.setLayoutParams(new GridView.LayoutParams(300,400));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //			imageView.setPadding(5,5,5,5);
+			Bitmap image = this.movieList.get(position).getPoster();
+			if (image !=null){
+				imageView.setImageBitmap(image);
+			}else {
+				imageView.setImageResource(R.drawable.sample_2);
+			}
+			
+			title.setText(this.movieList.get(position).getTitle());
+			details.setText(this.movieList.get(position).getOriginalTitle());
+			
+			
 		}else{
-			imageView=(ImageView)convertView;
+			gridViewItem=(View)convertView;
 		}
-		Bitmap image = this.movieList.get(position).getPoster();
-		if (image !=null){
-			imageView.setImageBitmap(image);
-		}else {
-			imageView.setImageResource(R.drawable.sample_2);
-		}
-		return imageView;
+		return gridViewItem;
+	}
+
+
+	public void setMovieList(ArrayList<Movie> movieList) {
+		this.movieList = movieList;
 	}
 
 

@@ -20,7 +20,7 @@ public class Movie {
 			this.originalTitle = movie.getString("originalTitle");
 			JSONObject moviePoster = movie.getJSONObject("poster");
 			
-			this.posterUrl = "http://fr.web.img"+((int) (Math.random() * 6)+1)+".acsta.net/r_75_100"+moviePoster.getString("path"); //moviePoster.getString("href");
+			this.posterUrl = "http://fr.web.img"+((int) (Math.random() * 6)+1)+".acsta.net/r_x_160"+moviePoster.getString("path"); //moviePoster.getString("href");
 			JSONArray movieLinks = movie.getJSONArray("link");
 			JSONObject firstMovieLink = movieLinks.getJSONObject(0);
 			this.link = firstMovieLink.getString("href");

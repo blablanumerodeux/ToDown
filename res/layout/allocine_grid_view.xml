@@ -7,7 +7,7 @@
 </ListView>-->
 <GridView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/allocine_list_film"
+        android:id="@+id/allocine_grid_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:columnWidth="90dp"
