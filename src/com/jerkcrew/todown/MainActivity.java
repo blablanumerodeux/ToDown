@@ -1,48 +1,34 @@
 package com.jerkcrew.todown;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-
-import com.jerkcrew.todown.Entity.Movie;
-import com.jerkcrew.todown.Modele.Allocine;
-import com.jerkcrew.todown.Modele.CurlLike;
-import com.jerkcrew.todown.Modele.XmlParser;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
-import android.content.Intent;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.JsonReader;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
+
+import com.jerkcrew.todown.Entity.Movie;
+import com.jerkcrew.todown.Modele.Allocine;
+import com.jerkcrew.todown.Modele.CurlLike;
 
 public class MainActivity extends Activity {
     private DrawerLayout drawerLayout;
@@ -96,15 +82,80 @@ public class MainActivity extends Activity {
         };
         drawerLayout.setDrawerListener(drawerToggle);
 
-        if (savedInstanceState == null) {
-            selectItem(0);
-        }
+//        if (savedInstanceState == null) {
+//            selectItem(0);
+//        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+        
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        
+//        MenuItemCompat.setOnActionExpandListener(searchItem, new OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem item) {
+//                // Do something when collapsed
+//                return true;  // Return true to collapse action view
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem item) {
+//
+//	        	LinkedHashMap<String, String> data = new LinkedHashMap<String, String>();
+//	     	    data.put("partner", ""+getResources().getString(R.string.ALLOCINE_PARTNER_KEY));
+//	     	    data.put("q", "the");
+//	     	    data.put("format", "json");
+//	     	    data.put("filter", "movie");
+//	     	    
+//	     	    String url = Allocine.buildURL(getResources().getString(R.string.ALLOCINE_SECRET_KEY),"search",data);
+//
+//	     	    CurlLike curl = new CurlLike();
+//	     	    String allocineAnswer;
+//				try {
+//					allocineAnswer = curl.execute(url).get();
+//					
+//				    JSONObject jsonObj = new JSONObject(allocineAnswer);
+//				    
+//				    JSONObject feed = jsonObj.getJSONObject("feed");
+//				    JSONArray movie = feed.getJSONArray("movie");
+//				    JSONArray results = feed.getJSONArray("results");
+//				    int page = feed.getInt("page"); 
+//				    int count = feed.getInt("count"); 
+//				    ArrayList<Movie> movies = new ArrayList<Movie>();
+//				    for (int i =0; i<movie.length();i++){
+//				    	movies.add(new Movie(movie.getJSONObject(i)));
+//				    }
+//				    
+//				    //we update the list view 
+//				    FragmentManager fragmentManager = getFragmentManager();
+//			        fragment.updateGrid(movies);
+//			        fragmentManager.beginTransaction().commit();
+//					
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				} catch (ExecutionException e) {
+//					e.printStackTrace();
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				
+//                // Do something when expanded
+//                return true;  // Return true to expand action view
+//            }
+//        });
+
+        // Configure the search info and add any event listeners
         return super.onCreateOptionsMenu(menu);
     }
     
@@ -117,51 +168,14 @@ public class MainActivity extends Activity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-	        case R.id.action_settings:
+	        case R.id.action_search :
+	        	Toast.makeText(this, "Search ! ", Toast.LENGTH_LONG).show();
+	        	return true;
 
-	        	LinkedHashMap<String, String> data = new LinkedHashMap<String, String>();
-	     	    data.put("partner", ""+getResources().getString(R.string.ALLOCINE_PARTNER_KEY));
-	     	    data.put("q", "the");
-	     	    data.put("format", "json");
-	     	    data.put("filter", "movie");
-	     	    
-	     	    String url = Allocine.buildURL(getResources().getString(R.string.ALLOCINE_SECRET_KEY),"search",data);
-
-	     	    CurlLike curl = new CurlLike();
-	     	    String allocineAnswer;
-				try {
-					allocineAnswer = curl.execute(url).get();
-					
-				    JSONObject jsonObj = new JSONObject(allocineAnswer);
-				    
-				    JSONObject feed = jsonObj.getJSONObject("feed");
-				    JSONArray movie = feed.getJSONArray("movie");
-				    JSONArray results = feed.getJSONArray("results");
-				    int page = feed.getInt("page"); 
-				    int count = feed.getInt("count"); 
-				    ArrayList<Movie> movies = new ArrayList<Movie>();
-				    for (int i =0; i<movie.length();i++){
-				    	movies.add(new Movie(movie.getJSONObject(i)));
-				    }
-				    
-				    //we update the list view 
-				    FragmentManager fragmentManager = getFragmentManager();
-			        fragment.updateGrid(movies);
-			        fragmentManager.beginTransaction().commit();
-					
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-	        	Toast.makeText(this, "Hey ! ", Toast.LENGTH_LONG).show();
+	        case R.id.action_settings: 
+	        	Toast.makeText(this, "Settings ! ", Toast.LENGTH_LONG).show();
+	        	return true;
 	        	
-	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
         }

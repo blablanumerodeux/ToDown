@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ToDown</string>
     <string name="action_settings">Settings</string>
+    <string name="search_hint">nom du film</string>
+    <string name="action_search">Search</string>
     <string name="hello_world">Hello world!</string>
     <string-array name="menu_array">
         <item>Option one</item>
