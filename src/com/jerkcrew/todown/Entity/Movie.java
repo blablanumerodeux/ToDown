@@ -16,14 +16,26 @@ public class Movie {
 	
 	public Movie(JSONObject movie) {
 		try {
-			this.title = movie.getString("title");
+			try {
+				this.title = movie.getString("title");
+			} catch (JSONException e) {
+				this.title = "";
+			}
 			this.originalTitle = movie.getString("originalTitle");
-			JSONObject moviePoster = movie.getJSONObject("poster");
+			try {
+				JSONObject moviePoster = movie.getJSONObject("poster");
+				this.posterUrl = "http://fr.web.img"+((int) (Math.random() * 6)+1)+".acsta.net/r_x_160"+moviePoster.getString("path"); //moviePoster.getString("href");
+			} catch (JSONException e) {
+				this.posterUrl = "";
+			}
 			
-			this.posterUrl = "http://fr.web.img"+((int) (Math.random() * 6)+1)+".acsta.net/r_x_160"+moviePoster.getString("path"); //moviePoster.getString("href");
-			JSONArray movieLinks = movie.getJSONArray("link");
-			JSONObject firstMovieLink = movieLinks.getJSONObject(0);
-			this.link = firstMovieLink.getString("href");
+			try {
+				JSONArray movieLinks = movie.getJSONArray("link");
+				JSONObject firstMovieLink = movieLinks.getJSONObject(0);
+				this.link = firstMovieLink.getString("href");
+			} catch (JSONException e) {
+				this.link = "";
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

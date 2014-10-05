@@ -68,7 +68,7 @@ public class SearchResultsActivity extends Activity {
              */
             LinkedHashMap<String, String> data = new LinkedHashMap<String, String>();
      	    data.put("partner", ""+getResources().getString(R.string.ALLOCINE_PARTNER_KEY));
-     	    data.put("q", "the");
+     	    data.put("q", query);
      	    data.put("format", "json");
      	    data.put("filter", "movie");
      	    
