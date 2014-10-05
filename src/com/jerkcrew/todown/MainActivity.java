@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
 //        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         
         // Associate searchable configuration with the SearchView
@@ -110,45 +110,7 @@ public class MainActivity extends Activity {
 //            @Override
 //            public boolean onMenuItemActionExpand(MenuItem item) {
 //
-//	        	LinkedHashMap<String, String> data = new LinkedHashMap<String, String>();
-//	     	    data.put("partner", ""+getResources().getString(R.string.ALLOCINE_PARTNER_KEY));
-//	     	    data.put("q", "the");
-//	     	    data.put("format", "json");
-//	     	    data.put("filter", "movie");
-//	     	    
-//	     	    String url = Allocine.buildURL(getResources().getString(R.string.ALLOCINE_SECRET_KEY),"search",data);
-//
-//	     	    CurlLike curl = new CurlLike();
-//	     	    String allocineAnswer;
-//				try {
-//					allocineAnswer = curl.execute(url).get();
-//					
-//				    JSONObject jsonObj = new JSONObject(allocineAnswer);
-//				    
-//				    JSONObject feed = jsonObj.getJSONObject("feed");
-//				    JSONArray movie = feed.getJSONArray("movie");
-//				    JSONArray results = feed.getJSONArray("results");
-//				    int page = feed.getInt("page"); 
-//				    int count = feed.getInt("count"); 
-//				    ArrayList<Movie> movies = new ArrayList<Movie>();
-//				    for (int i =0; i<movie.length();i++){
-//				    	movies.add(new Movie(movie.getJSONObject(i)));
-//				    }
-//				    
-//				    //we update the list view 
-//				    FragmentManager fragmentManager = getFragmentManager();
-//			        fragment.updateGrid(movies);
-//			        fragmentManager.beginTransaction().commit();
-//					
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				} catch (ExecutionException e) {
-//					e.printStackTrace();
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
+//	        	
 //				
 //                // Do something when expanded
 //                return true;  // Return true to expand action view

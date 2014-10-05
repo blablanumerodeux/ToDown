@@ -84,9 +84,4 @@ public class OnlineImageAdapter extends BaseAdapter{
 	public void setMovieList(ArrayList<Movie> movieList) {
 		this.movieList = movieList;
 	}
-
-
-
-	
-	
 }

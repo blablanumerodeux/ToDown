@@ -4,8 +4,6 @@
           android:icon="@drawable/action_search"
           android:showAsAction="always"
           android:actionViewClass="android.widget.SearchView" />
-<!--           toDown:showAsAction="ifRoom|collapseActionView" -->
-<!--           toDown:actionViewClass="android.support.v7.widget.SearchView" /> -->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
