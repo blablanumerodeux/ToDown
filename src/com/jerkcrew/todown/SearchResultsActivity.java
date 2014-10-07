@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jerkcrew.todown.Entity.Movie;
@@ -71,6 +72,7 @@ public class SearchResultsActivity extends Activity {
      	    data.put("q", query);
      	    data.put("format", "json");
      	    data.put("filter", "movie");
+     	    data.put("count", "9");
      	    
      	    String url = Allocine.buildURL(getResources().getString(R.string.ALLOCINE_SECRET_KEY),"search",data);
 
@@ -86,6 +88,9 @@ public class SearchResultsActivity extends Activity {
     		    JSONArray results = feed.getJSONArray("results");
     		    int page = feed.getInt("page"); 
     		    int count = feed.getInt("count"); 
+    		    JSONArray infoResults= feed.getJSONArray("results");
+    		    String typeOfItemsFound = infoResults.getJSONObject(0).getString("type");
+    		    int nbItemsFound = infoResults.getJSONObject(0).getInt("$");
     		    ArrayList<Movie> movies = new ArrayList<Movie>();
     		    for (int i =0; i<movie.length();i++){
     		    	movies.add(new Movie(movie.getJSONObject(i)));
@@ -115,8 +120,8 @@ public class SearchResultsActivity extends Activity {
     }
     
     public void updateGrid(ArrayList<Movie> movieList) {
-//    	GridView rootView = (GridView) this.getView();
     	GridView rootView = (GridView) findViewById(R.id.allocine_grid_view);
+//    	ListView rootView = (ListView) findViewById(R.id.allocine_grid_view);
         
         String[] movieListUrl = new String[movieList.size()];
         for (int i = 0; i<movieList.size();i++){

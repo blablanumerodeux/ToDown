@@ -51,32 +51,30 @@ public class OnlineImageAdapter extends BaseAdapter{
 		TextView title = new TextView(context);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		
-		if(convertView==null)
-		{
+
+		if(convertView==null){
 			gridViewItem = (View) inflater.inflate(R.layout.allocine_grid_item, null);
-			
-			imageView = (ImageView) gridViewItem.findViewById(R.id.grid_item_image);
-			details = (TextView) gridViewItem.findViewById(R.id.grid_item_details);
-			title = (TextView) gridViewItem.findViewById(R.id.grid_item_title);
-			
-//			imageView.setLayoutParams(new GridView.LayoutParams(300,400));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//			imageView.setPadding(5,5,5,5);
-			Bitmap image = this.movieList.get(position).getPoster();
-			if (image !=null){
-				imageView.setImageBitmap(image);
-			}else {
-				imageView.setImageResource(R.drawable.sample_2);
-			}
-			
-			title.setText(this.movieList.get(position).getTitle());
-			details.setText(this.movieList.get(position).getOriginalTitle());
-			
 			
 		}else{
 			gridViewItem=(View)convertView;
 		}
+		imageView = (ImageView) gridViewItem.findViewById(R.id.grid_item_image);
+		details = (TextView) gridViewItem.findViewById(R.id.grid_item_details);
+		title = (TextView) gridViewItem.findViewById(R.id.grid_item_title);
+		
+//			imageView.setLayoutParams(new GridView.LayoutParams(300,400));
+		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//			imageView.setPadding(5,5,5,5);
+		Bitmap image = this.movieList.get(position).getPoster();
+		if (image !=null){
+			imageView.setImageBitmap(image);
+		}else {
+			imageView.setImageResource(R.drawable.sample_2);
+		}
+		
+		title.setText(this.movieList.get(position).getTitle());
+		details.setText(this.movieList.get(position).getOriginalTitle());
+		
 		return gridViewItem;
 	}
 
